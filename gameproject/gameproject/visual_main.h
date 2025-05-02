@@ -8,13 +8,12 @@ using namespace std;
 
 class visual_main {
 private:
-    int currentDay;
     string morningPlan;
     string afternoonPlan;
 
 public:
     visual_main(int day = 1)
-        : currentDay(day), morningPlan("__"), afternoonPlan("__") {
+        : morningPlan("__"), afternoonPlan("__") {
         initializeStats();
     }
 
@@ -40,13 +39,13 @@ public:
         system("cls");
     }
 
-    void printUI(const string& morningChoice, const string& afternoonChoice) {
+    void printUI(const string& morningChoice, const string& afternoonChoice, int currentDay) {
         clearScreen();
 
-        int dDay = 60 - progress;
-        //int healthBar = health / 5;
-        //int teamworkBar = teamwork / 5;
-        //int progressBar = progress / 5;
+        int dDay = 60 - currentDay;
+        int healthBar = health / 5;
+        int teamworkBar = teamwork / 5;
+        int progressBar = progress / 5;
 
         cout << "========================================================\n";
         cout << "                    [Day " << currentDay << "  D-" << dDay << "]                      \n";
@@ -60,31 +59,30 @@ public:
 
         cout << "\n--------------------------------------------------------\n";
         cout << "Today's Plan\n";
-        cout << "  오전: " << morningPlan << "\n";
-        cout << "  오후: " << afternoonPlan << "\n";
+        cout << "  오전: " << (morningChoice.empty() ? "아직 선택하지 않음" : morningPlan) << "\n";
+        cout << "  오후: " << (afternoonChoice.empty() ? "아직 선택하지 않음" : afternoonPlan) << "\n";
         cout << "--------------------------------------------------------\n\n";
 
         cout << "[ S ] 상점열기                         [Enter] 다음 날\n";
 
         cout << "\n--------------------------------------------------------\n";
-        printStats();
-        //cout << "Current Status\n";
+        cout << "Current Status\n";
 
-        //cout << "  Health     : [";
-        //for (int i = 0; i < healthBar; i++) cout << "|";
-        //for (int i = healthBar; i < 20; i++) cout << " ";
-        //cout << "] " << health << "%" << endl;
+        cout << "  Health     : [";
+        for (int i = 0; i < healthBar; i++) cout << "|";
+        for (int i = healthBar; i < 20; i++) cout << " ";
+        cout << "] " << health << "%" << endl;
 
-        //cout << "  Teamwork   : [";
-        //for (int i = 0; i < teamworkBar; i++) cout << "|";
-        //for (int i = teamworkBar; i < 20; i++) cout << " ";
-        //cout << "] " << teamwork << "%" << endl;
+        cout << "  Teamwork   : [";
+        for (int i = 0; i < teamworkBar; i++) cout << "|";
+        for (int i = teamworkBar; i < 20; i++) cout << " ";
+        cout << "] " << teamwork << "%" << endl;
 
-        //cout << "  Progress   : [";
-        //for (int i = 0; i < progressBar; i++) cout << "|";
-        //for (int i = progressBar; i < 20; i++) cout << " ";
-        //cout << "] " << progress << "%" << endl;
+        cout << "  Progress   : [";
+        for (int i = 0; i < progressBar; i++) cout << "|";
+        for (int i = progressBar; i < 20; i++) cout << " ";
+        cout << "] " << progress << "%" << endl;
 
-        //cout << "========================================================\n";
+        cout << "========================================================\n";
     }
 };

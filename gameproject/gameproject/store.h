@@ -19,9 +19,9 @@ public:
         int item_number = 0;
 
         while (true) {
-            //int healthBar = health / 5;
-            //int teamworkBar = teamwork / 5;
-            //int progressBar = progress / 5;
+            int healthBar = health / 5;
+            int teamworkBar = teamwork / 5;
+            int progressBar = progress / 5;
 
             cout << "========================================================\n";
             cout << "                    [Day " << currentDay << "  D-" << dDay << "]                      \n";
@@ -36,8 +36,7 @@ public:
             cout << "Money : " << money << "원" << endl;
             cout << "\n--------------------------------------------------------\n";
 
-            printStats();
-            /*cout << "Current Status\n";
+            cout << "Current Status\n";
             cout << "  Health     : [";
             for (int i = 0; i < healthBar; i++) cout << "|";
             for (int i = healthBar; i < 20; i++) cout << " ";
@@ -53,7 +52,7 @@ public:
             for (int i = progressBar; i < 20; i++) cout << " ";
             cout << "] " << progress << "%" << endl;
 
-            cout << "========================================================\n";*/
+            cout << "========================================================\n";
             cout << "[M] 메인 화면으로 돌아가기\n";
             cout << "구매 할 아이템을 선택하세요: ";
             getline(cin, item_input);
