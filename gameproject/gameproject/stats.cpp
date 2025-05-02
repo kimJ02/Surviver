@@ -10,7 +10,7 @@ int teamwork;
 void initializeStats() {
     health = 80;
     progress = 0;
-    money = 10000.0;
+    money = 10000;
     teamwork = 80;
 }
 
