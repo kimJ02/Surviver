@@ -54,7 +54,7 @@ public:
 
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice);
 
-                cout << "\n[Enter]을 눌러 다음 날로 넘어가기...";
+                //cout << "\n[Enter]을 눌러 다음 날로 넘어가기...";
                 getline(cin, input);
 
                 currentDay++;
