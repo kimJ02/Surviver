@@ -12,10 +12,10 @@ public:
         if (plan == "2") return "놀러가기";
         if (plan == "3") return "과제하기";
         if (plan == "4") return "쉬기";
-        return "미정";  // 잘못된 값이 들어온 경우
+        return "미정";
     }
 
-    void print_day_result(int currentDay, string morningPlan, string afternoonPlan) {
+    void print_day_result(int currentDay, string morningPlan, string afternoonPlan, int money, int healthChange, int progressChange, int teamworkChange, int moneyChange) {
         system("cls");
 
         int dDay = 60 - currentDay;
@@ -34,20 +34,22 @@ public:
         cout << "\n--------------------------------------------------------\n";
         cout << " 스탯 변화 요약:\n\n";
 
+        cout << "  돈       : " << money << "원 (" << (moneyChange > 0 ? "+" : "") << moneyChange << ")\n";
+
         cout << "  체력     : [";
         for (int i = 0; i < healthBar; i++) cout << "|";
         for (int i = healthBar; i < 10; i++) cout << " ";
-        cout << "] " << health << "%\n";
+        cout << "] " << health << "% (" << (healthChange > 0 ? "+" : "") << healthChange << "%)\n";
 
         cout << "  완성도   : [";
         for (int i = 0; i < progressBar; i++) cout << "|";
         for (int i = progressBar; i < 20; i++) cout << " ";
-        cout << "] " << progress << "%\n";
+        cout << "] " << progress << "% (" << (progressChange > 0 ? "+" : "") << progressChange << "%)\n";
 
         cout << "  협력도   : [";
         for (int i = 0; i < teamworkBar; i++) cout << "|";
         for (int i = teamworkBar; i < 20; i++) cout << " ";
-        cout << "] " << teamwork << "%\n";
+        cout << "] " << teamwork << "% (" << (teamworkChange > 0 ? "+" : "") << teamworkChange << "%)\n";
 
         cout << "\n========================================================\n";
         cout << "[Enter]을 눌러 다음 날로 넘어가기...";

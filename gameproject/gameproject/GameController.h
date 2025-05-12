@@ -18,11 +18,50 @@ class GameController {
     string morningChoice;
     string afternoonChoice;
     int currentDay;
+    int money;  //  돈 변수 추가
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000) {
         initializeStats();
+    }
+
+    void applyStatsChange() {
+        //  오전 일정에 따른 스탯 변화 적용
+        if (morningChoice == "1") {
+            money += 10000;
+            health -= 10;
+        }
+        else if (morningChoice == "2") {
+            health -= 10;
+            teamwork += 10;
+        }
+        else if (morningChoice == "3") {
+            progress += 10;
+            health -= 10;
+        }
+        else if (morningChoice == "4") {
+            health += 10;
+            teamwork -= 10;
+        }
+
+        //  오후 일정에 따른 스탯 변화 적용
+        if (afternoonChoice == "1") {
+            money += 10000;
+            health -= 10;
+        }
+        else if (afternoonChoice == "2") {
+            health -= 10;
+            teamwork += 10;
+        }
+        else if (afternoonChoice == "3") {
+            progress += 10;
+            health -= 10;
+        }
+        else if (afternoonChoice == "4") {
+            health += 10;
+            teamwork -= 10;
+        }
     }
 
     void run() {
@@ -43,7 +82,7 @@ public:
 
             else if (input.empty()) {
                 if (morningChoice.empty() || afternoonChoice.empty()) {
-                    cout << "\n아직 일과를 정하지 않았습니다! 오전과 오후 일정을 먼저 선택해주세요.\n";
+                    cout << "\n 아직 일과를 정하지 않았습니다! 오전과 오후 일정을 먼저 선택해주세요.\n";
                     Sleep(2000);
                     system("cls");
                     continue;
@@ -51,8 +90,48 @@ public:
 
                 system("cls");
 
+                int healthChange = 0, progressChange = 0, teamworkChange = 0, moneyChange = 0;
 
-                nt.print_day_result(currentDay, morningChoice, afternoonChoice);
+                if (morningChoice == "1") {
+                    moneyChange += 10000;
+                    healthChange -= 10;
+                }
+                else if (morningChoice == "2") {
+                    healthChange -= 10;
+                    teamworkChange += 10;
+                }
+                else if (morningChoice == "3") {
+                    progressChange += 10;
+                    healthChange -= 10;
+                }
+                else if (morningChoice == "4") {
+                    healthChange += 10;
+                    teamworkChange -= 10;
+                }
+
+                if (afternoonChoice == "1") {
+                    moneyChange += 10000;
+                    healthChange -= 10;
+                }
+                else if (afternoonChoice == "2") {
+                    healthChange -= 10;
+                    teamworkChange += 10;
+                }
+                else if (afternoonChoice == "3") {
+                    progressChange += 10;
+                    healthChange -= 10;
+                }
+                else if (afternoonChoice == "4") {
+                    healthChange += 10;
+                    teamworkChange -= 10;
+                }
+
+                money += moneyChange;
+                health += healthChange;
+                progress += progressChange;
+                teamwork += teamworkChange;
+
+                nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
 
                 cout << "\n[Enter]을 눌러 다음 날로 넘어가기...";
                 getline(cin, input);
@@ -85,7 +164,7 @@ public:
             }
 
             else {
-                cout << "\n잘못된 입력입니다. 올바른 옵션을 선택하세요.\n";
+                cout << "\n 잘못된 입력입니다. 올바른 옵션을 선택하세요.\n";
                 Sleep(2000);
                 system("cls");
             }
