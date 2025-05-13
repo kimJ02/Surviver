@@ -445,3 +445,21 @@ Code/Coding Report/Changed File.md
 .vs/Surviver/v17/Browse.VC.db
 .vs/Surviver/v17/Browse.VC.db
 .vs/Surviver/v17/Browse.VC.db
+
+# Visual Studio 관련 파일 무시
+.vs/
+*.suo
+*.user
+*.db
+*.sqlite
+*.VC.db
+*.wsuo
+*.json
+
+# 빌드 결과물 무시
+Debug/
+Release/
+*.exe
+*.pdb
+*.ilk
+*.recipe
