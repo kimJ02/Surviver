@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-ï»¿#pragma once
+#pragma once
 #include <iostream>
 #include <string>
 #include <windows.h>
@@ -19,51 +18,51 @@ class GameController {
     string morningChoice;
     string afternoonChoice;
     int currentDay;
-    int money;  //  ëˆ ë³€ìˆ˜ ì¶”ê°€
+    int money;  // µ· º¯¼ö Ãß°¡
 
 public:
     GameController(int startDay = 1)
         : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000) {
         initializeStats();
     }
-
-    void applyStatsChange() {
-        //  ì˜¤ì „ ì¼ì •ì— ë”°ë¥¸ ìŠ¤íƒ¯ ë³€í™” ì ìš©
+    // ÇöÀç ¹Ì»ç¿ë
+    /*void applyStatsChange() {
+        // ÀÏÁ¤¿¡ µû¸¥ ½ºÅÈ º¯È­ Àû¿ë
         if (morningChoice == "1") {
             money += 10000;
-            health -= 10;
+            if(health >= 10) health -= 10;
         }
         else if (morningChoice == "2") {
-            health -= 10;
-            teamwork += 10;
+            if (teamwork <= 90) teamwork += 10;
+            if (health >= 10) health -= 10;
         }
         else if (morningChoice == "3") {
-            progress += 10;
-            health -= 10;
+            if (progress <= 90) progress += 10;
+            if (health >= 10) health -= 10;
         }
         else if (morningChoice == "4") {
-            health += 10;
-            teamwork -= 10;
+            if (teamwork >= 10) teamwork -= 10;
+            if (health <= 90) health += 10;
         }
 
-        //  ì˜¤í›„ ì¼ì •ì— ë”°ë¥¸ ìŠ¤íƒ¯ ë³€í™” ì ìš©
+        // ¿ÀÈÄ ÀÏÁ¤¿¡ µû¸¥ ½ºÅÈ º¯È­ Àû¿ë
         if (afternoonChoice == "1") {
             money += 10000;
-            health -= 10;
+            if (health >= 10) health -= 10;
         }
         else if (afternoonChoice == "2") {
-            health -= 10;
-            teamwork += 10;
+            if (teamwork <= 90) teamwork += 10;
+            if (health >= 10) health -= 10;
         }
         else if (afternoonChoice == "3") {
-            progress += 10;
-            health -= 10;
+            if (progress <= 90) progress += 10;
+            if (health >= 10) health -= 10;
         }
         else if (afternoonChoice == "4") {
-            health += 10;
-            teamwork -= 10;
+            if (teamwork >= 10) teamwork -= 10;
+            if (health <= 90) health += 10;
         }
-    }
+    }*/
 
     void run() {
         string input;
@@ -73,17 +72,17 @@ public:
         while (true) {
             vm.printUI(morningChoice, afternoonChoice, currentDay);
 
-            cout << "\nì¼ì •ì„ ì„ íƒí•˜ì„¸ìš” (1~4) ë˜ëŠ” [S]ìƒì , [Enter] ë‹¤ìŒë‚ , [q] ì¢…ë£Œ: ";
+            cout << "\nÀÏÁ¤À» ¼±ÅÃÇÏ¼¼¿ä (1~4) ¶Ç´Â [S]»óÁ¡, [Enter] ´ÙÀ½³¯, [q] Á¾·á: ";
             getline(cin, input);
 
             if (input == "q" || input == "Q") {
-                cout << "\nê²Œìž„ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.\n";
+                cout << "\n°ÔÀÓÀ» Á¾·áÇÕ´Ï´Ù.\n";
                 break;
             }
 
             else if (input.empty()) {
                 if (morningChoice.empty() || afternoonChoice.empty()) {
-                    cout << "\n ì•„ì§ ì¼ê³¼ë¥¼ ì •í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤! ì˜¤ì „ê³¼ ì˜¤í›„ ì¼ì •ì„ ë¨¼ì € ì„ íƒí•´ì£¼ì„¸ìš”.\n";
+                    cout << "\n¾ÆÁ÷ ÀÏ°ú¸¦ Á¤ÇÏÁö ¾Ê¾Ò½À´Ï´Ù! ¿ÀÀü°ú ¿ÀÈÄ ÀÏÁ¤À» ¸ÕÀú ¼±ÅÃÇØÁÖ¼¼¿ä.";
                     Sleep(2000);
                     system("cls");
                     continue;
@@ -134,7 +133,7 @@ public:
 
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
 
-                cout << "\n[Enter]ì„ ëˆŒëŸ¬ ë‹¤ìŒ ë‚ ë¡œ ë„˜ì–´ê°€ê¸°...";
+                cout << "\n[Enter]À» ´­·¯ ´ÙÀ½ ³¯·Î ³Ñ¾î°¡±â...";
                 getline(cin, input);
 
                 currentDay++;
@@ -165,105 +164,10 @@ public:
             }
 
             else {
-                cout << "\n ìž˜ëª»ëœ ìž…ë ¥ìž…ë‹ˆë‹¤. ì˜¬ë°”ë¥¸ ì˜µì…˜ì„ ì„ íƒí•˜ì„¸ìš”.\n";
+                cout << "\nÀß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ¿Ã¹Ù¸¥ ¿É¼ÇÀ» ¼±ÅÃÇÏ¼¼¿ä.\n";
                 Sleep(2000);
                 system("cls");
             }
         }
     }
-=======
-ï»¿#pragma once
-#include <iostream>
-#include <string>
-#include <windows.h>
-#include "visual_main.h"
-#include "store.h"
-#include "next_day.h"
-#include "prolog.h"
-#include "stats.h"
-
-using namespace std;
-
-class GameController {
-    visual_main vm;
-    store st;
-    next_day nt;
-    prolog pr;
-    string morningChoice;
-    string afternoonChoice;
-    int currentDay;
-
-public:
-    GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay) {
-        initializeStats();
-    }
-
-    void run() {
-        string input;
-
-        pr.print_prolog();
-
-        while (true) {
-            vm.printUI(morningChoice, afternoonChoice, currentDay);
-
-            cout << "\nì¼ì •ì„ ì„ íƒí•˜ì„¸ìš” (1~4) ë˜ëŠ” [S]ìƒì , [Enter] ë‹¤ìŒë‚ , [q] ì¢…ë£Œ: ";
-            getline(cin, input);
-
-            if (input == "q" || input == "Q") {
-                cout << "\nê²Œìž„ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.\n";
-                break;
-            }
-
-            else if (input.empty()) {
-                if (morningChoice.empty() || afternoonChoice.empty()) {
-                    cout << "\nì•„ì§ ì¼ê³¼ë¥¼ ì •í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤! ì˜¤ì „ê³¼ ì˜¤í›„ ì¼ì •ì„ ë¨¼ì € ì„ íƒí•´ì£¼ì„¸ìš”.\n";
-                    Sleep(2000);
-                    system("cls");
-                    continue;
-                }
-
-                system("cls");
-
-
-                nt.print_day_result(currentDay, morningChoice, afternoonChoice);
-
-                //cout << "\n[Enter]ì„ ëˆŒëŸ¬ ë‹¤ìŒ ë‚ ë¡œ ë„˜ì–´ê°€ê¸°...";
-                getline(cin, input);
-
-                currentDay++;
-                morningChoice = "";
-                afternoonChoice = "";
-
-                system("cls");
-                continue;
-            }
-
-            else if (input == "S" || input == "s") {
-                system("cls");
-                if (st.print_store()) {
-                    system("cls");
-                    continue;
-                }
-            }
-
-            else if (input == "1" || input == "2" || input == "3" || input == "4") {
-                if (morningChoice.empty()) {
-                    morningChoice = input;
-                    vm.setMorningPlan(stoi(morningChoice));
-                }
-                else if (afternoonChoice.empty()) {
-                    afternoonChoice = input;
-                    vm.setAfternoonPlan(stoi(afternoonChoice));
-                }
-            }
-
-            else {
-                cout << "\nìž˜ëª»ëœ ìž…ë ¥ìž…ë‹ˆë‹¤. ì˜¬ë°”ë¥¸ ì˜µì…˜ì„ ì„ íƒí•˜ì„¸ìš”.\n";
-                Sleep(2000);
-                system("cls");
-            }
-        }
-    }
->>>>>>> 56aa306e4daf7a9a01ed1ee52300f7803a75dfef
 };
