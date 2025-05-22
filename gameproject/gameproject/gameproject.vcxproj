@@ -143,6 +143,7 @@
     <ClCompile Include="stats.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileIO.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="next_day.h" />
     <ClInclude Include="prolog.h" />

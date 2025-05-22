@@ -7,6 +7,7 @@
 #include "next_day.h"
 #include "prolog.h"
 #include "stats.h"
+#include "FileIO.h"
 
 using namespace std;
 
@@ -68,6 +69,46 @@ public:
         string input;
 
         pr.print_prolog();
+
+        //테스트용
+        currentDay = 20;
+
+        if (currentDay == 1)
+        {
+           FileIO::printSentenceAt("Story/Day_per_20.txt",0);
+           Sleep(5000);
+           system("cls");
+        }
+        if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
+        {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
+            Sleep(5000);
+            system("cls");
+        }
+        else if (currentDay == 20 && progress >= 30)
+        {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
+            Sleep(5000);
+            system("cls");
+        }
+        if (currentDay == 40 && progress < 50)
+        {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
+            Sleep(5000);
+            system("cls");
+        }
+        else if (currentDay == 40 && progress >= 50)
+        {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
+            Sleep(5000);
+            system("cls");
+        }
+        if (currentDay == 60)
+        {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
+            Sleep(5000);
+            system("cls");
+        }
 
         while (true) {
             vm.printUI(morningChoice, afternoonChoice, currentDay);
