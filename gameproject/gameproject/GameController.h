@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include<cstdlib>
+#include<ctime>
 #include "visual_main.h"
 #include "store.h"
 #include "next_day.h"
@@ -20,10 +22,12 @@ class GameController {
     string afternoonChoice;
     int currentDay;
     int money;  // 돈 변수 추가
+    int MorningRandom;
+    int AfternoonRandom;
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000), MorningRandom(0), AfternoonRandom(0) {
         initializeStats();
     }
     // 현재 미사용
@@ -71,46 +75,16 @@ public:
         pr.print_prolog();
 
         //테스트용
-        currentDay = 20;
-
-        if (currentDay == 1)
-        {
-           FileIO::printSentenceAt("Story/Day_per_20.txt",0);
-           Sleep(5000);
-           system("cls");
-        }
-        if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
-            Sleep(5000);
-            system("cls");
-        }
-        else if (currentDay == 20 && progress >= 30)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
-            Sleep(5000);
-            system("cls");
-        }
-        if (currentDay == 40 && progress < 50)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
-            Sleep(5000);
-            system("cls");
-        }
-        else if (currentDay == 40 && progress >= 50)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
-            Sleep(5000);
-            system("cls");
-        }
-        if (currentDay == 60)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
-            Sleep(5000);
-            system("cls");
-        }
+        currentDay = 59;
+        srand((unsigned int)time(NULL));
 
         while (true) {
+
+            //테스트용
+            
+            MorningRandom = rand() % 10;
+            afternoonChoice = rand() % 10;
+
             vm.printUI(morningChoice, afternoonChoice, currentDay);
 
             cout << "\n일정을 선택하세요 (1~4) 또는 [S]상점, [Enter] 다음날, [q] 종료: ";
@@ -132,14 +106,24 @@ public:
                 system("cls");
 
                 int healthChange = 0, progressChange = 0, teamworkChange = 0, moneyChange = 0;
-
                 if (morningChoice == "1") {
                     moneyChange += 10000;
                     healthChange -= 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Work_story.txt", MorningRandom);
+                    Sleep(5000);
+                    system("cls");
                 }
                 else if (morningChoice == "2") {
                     healthChange -= 10;
                     teamworkChange += 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Playing_story.txt", MorningRandom);
+                    Sleep(5000);
+                    system("cls");
+
                 }
                 else if (morningChoice == "3") {
                     progressChange += 10;
@@ -148,15 +132,30 @@ public:
                 else if (morningChoice == "4") {
                     healthChange += 10;
                     teamworkChange -= 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Rest_story.txt", MorningRandom);
+                    Sleep(5000);
+                    system("cls");
                 }
 
                 if (afternoonChoice == "1") {
                     moneyChange += 10000;
                     healthChange -= 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Work_story.txt", AfternoonRandom);
+                    Sleep(5000);
+                    system("cls");
                 }
                 else if (afternoonChoice == "2") {
                     healthChange -= 10;
                     teamworkChange += 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Playing_story.txt", AfternoonRandom);
+                    Sleep(5000);
+                    system("cls");
                 }
                 else if (afternoonChoice == "3") {
                     progressChange += 10;
@@ -165,6 +164,11 @@ public:
                 else if (afternoonChoice == "4") {
                     healthChange += 10;
                     teamworkChange -= 10;
+
+                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    FileIO::printSentenceAt("Story/Rest_story.txt", AfternoonRandom);
+                    Sleep(5000);
+                    system("cls");
                 }
 
                 money += moneyChange;
@@ -182,6 +186,51 @@ public:
                 afternoonChoice = "";
 
                 system("cls");
+
+                // 날짜(20일 단위)에 따른 이벤트 출력
+                if (currentDay == 1)
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
+                    Sleep(5000);
+                    system("cls");
+                }
+                if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
+                    Sleep(5000);
+                    system("cls");
+                }
+                else if (currentDay == 20 && progress >= 30)
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
+                    Sleep(5000);
+                    system("cls");
+                }
+                if (currentDay == 40 && progress < 50)
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
+                    Sleep(5000);
+                    system("cls");
+                }
+                else if (currentDay == 40 && progress >= 50)
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
+                    Sleep(5000);
+                    system("cls");
+                }
+                if (currentDay == 60)
+                {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
+                    Sleep(5000);
+                    system("cls");
+
+                    // 엔딩 스토리 출력
+                    // 스텟에 따라 다른 스토리 나오는 걸로 수정 필요
+                    FileIO::printSentenceAt("Story/Ending_story.txt", 0);
+                    Sleep(5000);
+                    system("cls");
+                }
+
                 continue;
             }
 
