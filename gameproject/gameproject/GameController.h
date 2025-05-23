@@ -76,14 +76,13 @@ public:
 
         //테스트용
         currentDay = 59;
-        srand((unsigned int)time(NULL));
+        srand(static_cast<unsigned int>(time(NULL)));
 
         while (true) {
 
             //테스트용
             
             MorningRandom = rand() % 10;
-            afternoonChoice = rand() % 10;
 
             vm.printUI(morningChoice, afternoonChoice, currentDay);
 
@@ -112,6 +111,7 @@ public:
 
                     // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
                     FileIO::printSentenceAt("Story/Work_story.txt", MorningRandom);
+                    cout << MorningRandom << AfternoonRandom << endl;
                     Sleep(5000);
                     system("cls");
                 }
@@ -142,20 +142,10 @@ public:
                 if (afternoonChoice == "1") {
                     moneyChange += 10000;
                     healthChange -= 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Work_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
                 else if (afternoonChoice == "2") {
                     healthChange -= 10;
                     teamworkChange += 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Playing_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
                 else if (afternoonChoice == "3") {
                     progressChange += 10;
@@ -164,11 +154,6 @@ public:
                 else if (afternoonChoice == "4") {
                     healthChange += 10;
                     teamworkChange -= 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Rest_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
 
                 money += moneyChange;
