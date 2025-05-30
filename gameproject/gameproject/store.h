@@ -1,4 +1,4 @@
-\#pragma once
+#pragma once
 #include "stats.h"
 #include <iostream>
 #include <Windows.h>

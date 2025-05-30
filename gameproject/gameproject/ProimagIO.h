@@ -1,4 +1,3 @@
-
 #pragma once
 #include <string>
 #include <vector>
@@ -6,9 +5,10 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <windows.h>
 using namespace std;
 
-namespace proimagIO {
+namespace ProimagIO {
 
     static inline string trim(const string& s) {
         auto is_space = [](char ch) {
