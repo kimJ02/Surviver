@@ -151,6 +151,7 @@
     <ClInclude Include="store.h" />
     <ClInclude Include="visual_main.h" />
     <ClInclude Include="StartUp.h" />
+    <ClInclude Include="ProimagIO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

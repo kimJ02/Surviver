@@ -19,51 +19,12 @@ class GameController {
     string morningChoice;
     string afternoonChoice;
     int currentDay;
-    int money;  // 돈 변수 추가
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay) {
         initializeStats();
     }
-    // 현재 미사용
-    /*void applyStatsChange() {
-        // 일정에 따른 스탯 변화 적용
-        if (morningChoice == "1") {
-            money += 10000;
-            if(health >= 10) health -= 10;
-        }
-        else if (morningChoice == "2") {
-            if (teamwork <= 90) teamwork += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (morningChoice == "3") {
-            if (progress <= 90) progress += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (morningChoice == "4") {
-            if (teamwork >= 10) teamwork -= 10;
-            if (health <= 90) health += 10;
-        }
-
-        // 오후 일정에 따른 스탯 변화 적용
-        if (afternoonChoice == "1") {
-            money += 10000;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "2") {
-            if (teamwork <= 90) teamwork += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "3") {
-            if (progress <= 90) progress += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "4") {
-            if (teamwork >= 10) teamwork -= 10;
-            if (health <= 90) health += 10;
-        }
-    }*/
 
     void run() {
         string input;
@@ -71,13 +32,13 @@ public:
         pr.print_prolog();
 
         //테스트용
-        currentDay = 20;
+        currentDay = 1;
 
         if (currentDay == 1)
         {
-           FileIO::printSentenceAt("Story/Day_per_20.txt",0);
-           Sleep(5000);
-           system("cls");
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
+            Sleep(5000);
+            system("cls");
         }
         if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
         {
@@ -133,44 +94,59 @@ public:
 
                 int healthChange = 0, progressChange = 0, teamworkChange = 0, moneyChange = 0;
 
-                if (morningChoice == "1") {
-                    moneyChange += 10000;
+                if (morningChoice == "1") { // 알바
+                    moneyChange += 40000;
                     healthChange -= 10;
                 }
-                else if (morningChoice == "2") {
-                    healthChange -= 10;
+                else if (morningChoice == "2") {  // 놀러가기
+                    healthChange -= 5;
                     teamworkChange += 10;
+                    moneyChange -= 20000;
                 }
-                else if (morningChoice == "3") {
-                    progressChange += 10;
+                else if (morningChoice == "3") {  // 과제
+                    progressChange += 2;
                     healthChange -= 10;
+                    teamworkChange -= 5;
                 }
-                else if (morningChoice == "4") {
-                    healthChange += 10;
-                    teamworkChange -= 10;
+                else if (morningChoice == "4") {  // 쉬기
+                    healthChange += 15;
+                    teamworkChange -= 5;
                 }
 
                 if (afternoonChoice == "1") {
-                    moneyChange += 10000;
+                    moneyChange += 40000;
                     healthChange -= 10;
                 }
                 else if (afternoonChoice == "2") {
-                    healthChange -= 10;
+                    healthChange -= 5;
                     teamworkChange += 10;
+                    moneyChange -= 20000;
                 }
                 else if (afternoonChoice == "3") {
-                    progressChange += 10;
+                    progressChange += 2;
                     healthChange -= 10;
+                    teamworkChange -= 5;
                 }
                 else if (afternoonChoice == "4") {
-                    healthChange += 10;
-                    teamworkChange -= 10;
+                    healthChange += 15;
+                    teamworkChange -= 5;
                 }
 
                 money += moneyChange;
                 health += healthChange;
                 progress += progressChange;
                 teamwork += teamworkChange;
+
+                if (health < 0) health = 0;
+                if (health > 100) health = 100;
+
+                if (progress < 0) progress = 0;
+                if (progress > 100) progress = 100;
+
+                if (teamwork < 0) teamwork = 0;
+                if (teamwork > 100) teamwork = 100;
+
+                if (money < 0) money = 0;
 
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
 
@@ -195,12 +171,48 @@ public:
 
             else if (input == "1" || input == "2" || input == "3" || input == "4") {
                 if (morningChoice.empty()) {
-                    morningChoice = input;
-                    vm.setMorningPlan(stoi(morningChoice));
+                    // 오전 일정 선택 시 조건 검사
+                    if (input == "1" && health < 10) {
+                        cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else if (input == "2" && money < 20000) {
+                        cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else if (input == "3" && health < 10) {
+                        cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else {
+                        morningChoice = input;
+                        vm.setMorningPlan(stoi(morningChoice));
+                    }
                 }
                 else if (afternoonChoice.empty()) {
-                    afternoonChoice = input;
-                    vm.setAfternoonPlan(stoi(afternoonChoice));
+                    // 오후 일정 선택 시 조건 검사
+                    if (input == "1" && health < 10) {
+                        cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else if (input == "2" && money < 20000) {
+                        cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else if (input == "3" && health < 10) {
+                        cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                        system("cls");
+                    }
+                    else {
+                        afternoonChoice = input;
+                        vm.setAfternoonPlan(stoi(afternoonChoice));
+                    }
                 }
             }
 

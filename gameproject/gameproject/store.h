@@ -1,8 +1,9 @@
-#pragma once
+\#pragma once
 #include "stats.h"
 #include <iostream>
 #include <Windows.h>
-
+#include <stdlib.h>
+#include<time.h>
 using namespace std;
 
 class store {
@@ -15,7 +16,6 @@ public:
 
     bool print_store() {
         string item_input;
-        int dDay = 60 - currentDay;
         int item_number = 0;
 
         while (true) {
@@ -24,13 +24,13 @@ public:
             int progressBar = progress / 5;
 
             cout << "========================================================\n";
-            cout << "                    [Day " << currentDay << "  D-" << dDay << "]                      \n";
+            cout << "                    [Store]                      \n";
             cout << "========================================================\n\n";
 
             cout << "Item List\n";
             cout << "--------------------------------------------------------\n\n";
-            cout << "  [1] 에너지 드링크 (2000원): 체력 회복\n";
-            cout << "  [2] 복권 (1000원): \n";
+            cout << "  [1] 에너지 드링크 (5000원): 체력 회복\n";
+            cout << "  [2] 복권 (15000원): \n";
             cout << "--------------------------------------------------------\n\n";
 
             cout << "Money : " << money << "원" << endl;
@@ -77,19 +77,31 @@ public:
 
             switch (item_number) {
             case 1:
-                if (money >= 2000 && health <= 90) {
-                    health += 10;
-                    money -= 2000;
+                if (money >= 5000 && health <= 95) {
+                    health += 5;  //
+                    money -= 5000;  //에너지 드링크 5000원
                     cout << "(꼴깍) 에너지 드링크를 마셨다. 체력: " << health << "%\n";
                 }
                 else {
                     cout << "구매할 수 없습니다.\n";
                 }
                 break;
-            case 2:
-                if (money >= 1000) {
-                    money -= 1000;
-                    cout << "(두근 두근) 복권을 구매했다! 꽝이야..\n";
+            case 2:// 확률 3퍼센트에 30만원 - 무조건 뽑는 사람이 손해 보도록
+                srand(time(NULL));
+                int winning_percentage = rand() % 33; // 0 ~32 난수
+
+                if (money >= 10000) {
+                    money -= 15000;
+                    if (winning_percentage == 32)
+                    {
+                        money += 300000;
+                        cout << "복권 당첨!!!!!!\n";
+                    }
+                    else
+                    {
+                        cout << "(두근 두근) 복권을 구매했다! 꽝이야..\n";
+                    }
+
                 }
                 else {
                     cout << "구매할 수 없습니다.\n";

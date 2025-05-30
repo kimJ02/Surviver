@@ -41,7 +41,7 @@ public:
         for (int i = healthBar; i < 10; i++) cout << " ";
         cout << "] " << health << "% (" << (healthChange > 0 ? "+" : "") << healthChange << "%)\n";
 
-        cout << "  완성도   : [";
+        cout << "  진행도   : [";
         for (int i = 0; i < progressBar; i++) cout << "|";
         for (int i = progressBar; i < 20; i++) cout << " ";
         cout << "] " << progress << "% (" << (progressChange > 0 ? "+" : "") << progressChange << "%)\n";
