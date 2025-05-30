@@ -2,12 +2,15 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include <cstdlib>
+#include <ctime>
 #include "visual_main.h"
 #include "store.h"
 #include "next_day.h"
 #include "prolog.h"
 #include "stats.h"
 #include "FileIO.h"
+#include "ProimagIO.h"
 
 using namespace std;
 
@@ -19,10 +22,11 @@ class GameController {
     string morningChoice;
     string afternoonChoice;
     int currentDay;
+    int Random;
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), Random(0) {
         initializeStats();
     }
 
@@ -31,47 +35,19 @@ public:
 
         pr.print_prolog();
 
-        //테스트용
-        currentDay = 1;
+        srand(static_cast<unsigned int>(time(NULL)));
 
-        if (currentDay == 1)
-        {
+        // Day 1 오프닝
+        if (currentDay == 1) {
             FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
-            Sleep(5000);
-            system("cls");
-        }
-        if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
-            Sleep(5000);
-            system("cls");
-        }
-        else if (currentDay == 20 && progress >= 30)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
-            Sleep(5000);
-            system("cls");
-        }
-        if (currentDay == 40 && progress < 50)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
-            Sleep(5000);
-            system("cls");
-        }
-        else if (currentDay == 40 && progress >= 50)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
-            Sleep(5000);
-            system("cls");
-        }
-        if (currentDay == 60)
-        {
-            FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
+            ProimagIO::printSentenceAt("Story/professor_image.txt", 1);
             Sleep(5000);
             system("cls");
         }
 
         while (true) {
+            Random = rand() % 10;
+
             vm.printUI(morningChoice, afternoonChoice, currentDay);
 
             cout << "\n일정을 선택하세요 (1~4) 또는 [S]상점, [Enter] 다음날, [q] 종료: ";
@@ -94,25 +70,35 @@ public:
 
                 int healthChange = 0, progressChange = 0, teamworkChange = 0, moneyChange = 0;
 
-                if (morningChoice == "1") { // 알바
+                // 오전 일정 처리
+                if (morningChoice == "1") {
                     moneyChange += 40000;
                     healthChange -= 10;
+                    FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
+                    getline(cin, input);
                 }
-                else if (morningChoice == "2") {  // 놀러가기
+                else if (morningChoice == "2") {
                     healthChange -= 5;
                     teamworkChange += 10;
                     moneyChange -= 20000;
+                    FileIO::printSentenceAt("Story/Playing_story.txt", Random);
+                    getline(cin, input);
                 }
-                else if (morningChoice == "3") {  // 과제
+                else if (morningChoice == "3") {
                     progressChange += 2;
                     healthChange -= 10;
                     teamworkChange -= 5;
+                    FileIO::printSentenceAt("Story/Work_story.txt", Random);
+                    getline(cin, input);
                 }
-                else if (morningChoice == "4") {  // 쉬기
+                else if (morningChoice == "4") {
                     healthChange += 15;
                     teamworkChange -= 5;
+                    FileIO::printSentenceAt("Story/Rest_story.txt", Random);
+                    getline(cin, input);
                 }
 
+                // 오후 일정 처리
                 if (afternoonChoice == "1") {
                     moneyChange += 40000;
                     healthChange -= 10;
@@ -132,20 +118,19 @@ public:
                     teamworkChange -= 5;
                 }
 
+                // 스탯 반영
                 money += moneyChange;
                 health += healthChange;
                 progress += progressChange;
                 teamwork += teamworkChange;
 
+                // 스탯 범위 제한
                 if (health < 0) health = 0;
                 if (health > 100) health = 100;
-
                 if (progress < 0) progress = 0;
                 if (progress > 100) progress = 100;
-
                 if (teamwork < 0) teamwork = 0;
                 if (teamwork > 100) teamwork = 100;
-
                 if (money < 0) money = 0;
 
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
@@ -158,6 +143,33 @@ public:
                 afternoonChoice = "";
 
                 system("cls");
+
+                // 20일 단위 이벤트
+                if (currentDay == 20) {
+                    if (progress < 30)
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
+                    
+                    else
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
+                    Sleep(5000); getline(cin, input); system("cls");
+                }
+                else if (currentDay == 40) {
+                    if (progress < 50)
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
+                    else
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
+                    Sleep(5000); getline(cin, input); system("cls");
+                }
+                else if (currentDay == 60) {
+                    FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
+                    Sleep(5000); getline(cin, input);
+
+                    // 엔딩
+                    FileIO::printSentenceAt("Story/Ending_story.txt", 0); // TODO: 스탯별로 다른 엔딩 추가
+                    getline(cin, input);
+                    break;
+                }
+
                 continue;
             }
 
@@ -170,49 +182,40 @@ public:
             }
 
             else if (input == "1" || input == "2" || input == "3" || input == "4") {
+                // 일정 선택 전 조건 검사
                 if (morningChoice.empty()) {
-                    // 오전 일정 선택 시 조건 검사
                     if (input == "1" && health < 10) {
                         cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else if (input == "2" && money < 20000) {
                         cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else if (input == "3" && health < 10) {
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else {
                         morningChoice = input;
-                        vm.setMorningPlan(stoi(morningChoice));
+                        vm.setMorningPlan(stoi(input));
                     }
+                    Sleep(3000);
+                    system("cls");
                 }
                 else if (afternoonChoice.empty()) {
-                    // 오후 일정 선택 시 조건 검사
                     if (input == "1" && health < 10) {
                         cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else if (input == "2" && money < 20000) {
                         cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else if (input == "3" && health < 10) {
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
-                        Sleep(3000);
-                        system("cls");
                     }
                     else {
                         afternoonChoice = input;
-                        vm.setAfternoonPlan(stoi(afternoonChoice));
+                        vm.setAfternoonPlan(stoi(input));
                     }
+                    Sleep(3000);
+                    system("cls");
                 }
             }
 
