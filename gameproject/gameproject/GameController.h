@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include<cstdlib>
-#include<ctime>
+#include <cstdlib>
+#include <ctime>
 #include "visual_main.h"
 #include "store.h"
 #include "next_day.h"
@@ -22,12 +22,11 @@ class GameController {
     string afternoonChoice;
     int currentDay;
     int money;  // 돈 변수 추가
-    int MorningRandom;
-    int AfternoonRandom;
+    int Random;
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000), MorningRandom(0), AfternoonRandom(0) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000), Random(0) {
         initializeStats();
     }
     // 현재 미사용
@@ -76,14 +75,13 @@ public:
 
         //테스트용
         currentDay = 59;
-        srand((unsigned int)time(NULL));
+        srand(static_cast<unsigned int>(time(NULL)));
 
         while (true) {
 
             //테스트용
-            
-            MorningRandom = rand() % 10;
-            afternoonChoice = rand() % 10;
+
+            Random = rand() % 10;
 
             vm.printUI(morningChoice, afternoonChoice, currentDay);
 
@@ -111,51 +109,40 @@ public:
                     healthChange -= 10;
 
                     // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Work_story.txt", MorningRandom);
-                    Sleep(5000);
-                    system("cls");
+                    FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
+                    getline(cin, input);
                 }
                 else if (morningChoice == "2") {
                     healthChange -= 10;
                     teamworkChange += 10;
 
                     // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Playing_story.txt", MorningRandom);
-                    Sleep(5000);
-                    system("cls");
-
+                    FileIO::printSentenceAt("Story/Playing_story.txt", Random);
+                    getline(cin, input);
                 }
                 else if (morningChoice == "3") {
                     progressChange += 10;
                     healthChange -= 10;
+
+                    FileIO::printSentenceAt("Story/Work_story.txt", Random);
+                    getline(cin, input);
                 }
                 else if (morningChoice == "4") {
                     healthChange += 10;
                     teamworkChange -= 10;
 
                     // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Rest_story.txt", MorningRandom);
-                    Sleep(5000);
-                    system("cls");
+                    FileIO::printSentenceAt("Story/Rest_story.txt", Random);
+                    getline(cin, input);
                 }
 
                 if (afternoonChoice == "1") {
                     moneyChange += 10000;
                     healthChange -= 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Work_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
                 else if (afternoonChoice == "2") {
                     healthChange -= 10;
                     teamworkChange += 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Playing_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
                 else if (afternoonChoice == "3") {
                     progressChange += 10;
@@ -164,11 +151,6 @@ public:
                 else if (afternoonChoice == "4") {
                     healthChange += 10;
                     teamworkChange -= 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
-                    FileIO::printSentenceAt("Story/Rest_story.txt", AfternoonRandom);
-                    Sleep(5000);
-                    system("cls");
                 }
 
                 money += moneyChange;
@@ -191,44 +173,37 @@ public:
                 if (currentDay == 1)
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
                 if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
                 else if (currentDay == 20 && progress >= 30)
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
                 if (currentDay == 40 && progress < 50)
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
                 else if (currentDay == 40 && progress >= 50)
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
                 if (currentDay == 60)
                 {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
 
                     // 엔딩 스토리 출력
                     // 스텟에 따라 다른 스토리 나오는 걸로 수정 필요
                     FileIO::printSentenceAt("Story/Ending_story.txt", 0);
-                    Sleep(5000);
-                    system("cls");
+                    getline(cin, input);
                 }
 
                 continue;

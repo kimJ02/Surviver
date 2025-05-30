@@ -463,3 +463,5 @@ Release/
 *.pdb
 *.ilk
 *.recipe
+gameproject/gameproject/x64/Debug/vc143.pdb
+gameproject/gameproject/x64/Debug/vc143.idb
