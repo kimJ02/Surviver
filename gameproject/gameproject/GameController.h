@@ -10,6 +10,7 @@
 #include "prolog.h"
 #include "stats.h"
 #include "FileIO.h"
+#include "ProimagIO.h"
 
 using namespace std;
 
@@ -21,66 +22,30 @@ class GameController {
     string morningChoice;
     string afternoonChoice;
     int currentDay;
-    int money;  // 돈 변수 추가
     int Random;
 
 public:
     GameController(int startDay = 1)
-        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), money(50000), Random(0) {
+        : vm(startDay), st(), nt(), pr(), morningChoice(""), afternoonChoice(""), currentDay(startDay), Random(0) {
         initializeStats();
     }
-    // 현재 미사용
-    /*void applyStatsChange() {
-        // 일정에 따른 스탯 변화 적용
-        if (morningChoice == "1") {
-            money += 10000;
-            if(health >= 10) health -= 10;
-        }
-        else if (morningChoice == "2") {
-            if (teamwork <= 90) teamwork += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (morningChoice == "3") {
-            if (progress <= 90) progress += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (morningChoice == "4") {
-            if (teamwork >= 10) teamwork -= 10;
-            if (health <= 90) health += 10;
-        }
-
-        // 오후 일정에 따른 스탯 변화 적용
-        if (afternoonChoice == "1") {
-            money += 10000;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "2") {
-            if (teamwork <= 90) teamwork += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "3") {
-            if (progress <= 90) progress += 10;
-            if (health >= 10) health -= 10;
-        }
-        else if (afternoonChoice == "4") {
-            if (teamwork >= 10) teamwork -= 10;
-            if (health <= 90) health += 10;
-        }
-    }*/
 
     void run() {
         string input;
 
         pr.print_prolog();
 
-        //테스트용
-        currentDay = 59;
         srand(static_cast<unsigned int>(time(NULL)));
 
+        // Day 1 오프닝
+        if (currentDay == 1) {
+            FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
+            ProimagIO::printSentenceAt("Story/professor_image.txt", 1);
+            Sleep(5000);
+            system("cls");
+        }
+
         while (true) {
-
-            //테스트용
-
             Random = rand() % 10;
 
             vm.printUI(morningChoice, afternoonChoice, currentDay);
@@ -104,59 +69,69 @@ public:
                 system("cls");
 
                 int healthChange = 0, progressChange = 0, teamworkChange = 0, moneyChange = 0;
-                if (morningChoice == "1") {
-                    moneyChange += 10000;
-                    healthChange -= 10;
 
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                // 오전 일정 처리
+                if (morningChoice == "1") {
+                    moneyChange += 40000;
+                    healthChange -= 10;
                     FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
                     getline(cin, input);
                 }
                 else if (morningChoice == "2") {
-                    healthChange -= 10;
+                    healthChange -= 5;
                     teamworkChange += 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    moneyChange -= 20000;
                     FileIO::printSentenceAt("Story/Playing_story.txt", Random);
                     getline(cin, input);
                 }
                 else if (morningChoice == "3") {
-                    progressChange += 10;
+                    progressChange += 2;
                     healthChange -= 10;
-
+                    teamworkChange -= 5;
                     FileIO::printSentenceAt("Story/Work_story.txt", Random);
                     getline(cin, input);
                 }
                 else if (morningChoice == "4") {
-                    healthChange += 10;
-                    teamworkChange -= 10;
-
-                    // 일정 선택에 따른 이벤트 출력                      숫자 랜덤으로
+                    healthChange += 15;
+                    teamworkChange -= 5;
                     FileIO::printSentenceAt("Story/Rest_story.txt", Random);
                     getline(cin, input);
                 }
 
+                // 오후 일정 처리
                 if (afternoonChoice == "1") {
-                    moneyChange += 10000;
+                    moneyChange += 40000;
                     healthChange -= 10;
                 }
                 else if (afternoonChoice == "2") {
-                    healthChange -= 10;
+                    healthChange -= 5;
                     teamworkChange += 10;
+                    moneyChange -= 20000;
                 }
                 else if (afternoonChoice == "3") {
-                    progressChange += 10;
+                    progressChange += 2;
                     healthChange -= 10;
+                    teamworkChange -= 5;
                 }
                 else if (afternoonChoice == "4") {
-                    healthChange += 10;
-                    teamworkChange -= 10;
+                    healthChange += 15;
+                    teamworkChange -= 5;
                 }
 
+                // 스탯 반영
                 money += moneyChange;
                 health += healthChange;
                 progress += progressChange;
                 teamwork += teamworkChange;
+
+                // 스탯 범위 제한
+                if (health < 0) health = 0;
+                if (health > 100) health = 100;
+                if (progress < 0) progress = 0;
+                if (progress > 100) progress = 100;
+                if (teamwork < 0) teamwork = 0;
+                if (teamwork > 100) teamwork = 100;
+                if (money < 0) money = 0;
 
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
 
@@ -169,41 +144,30 @@ public:
 
                 system("cls");
 
-                // 날짜(20일 단위)에 따른 이벤트 출력
-                if (currentDay == 1)
-                {
-                    FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
-                    getline(cin, input);
+                // 20일 단위 이벤트
+                if (currentDay == 20) {
+                    if (progress < 30)
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
+                    
+                    else
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
+                    Sleep(5000); getline(cin, input); system("cls");
                 }
-                if (currentDay == 20 && progress < 30) // 협력도 조정 해야됨
-                {
-                    FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
-                    getline(cin, input);
+                else if (currentDay == 40) {
+                    if (progress < 50)
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
+                    else
+                        FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
+                    Sleep(5000); getline(cin, input); system("cls");
                 }
-                else if (currentDay == 20 && progress >= 30)
-                {
-                    FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
-                    getline(cin, input);
-                }
-                if (currentDay == 40 && progress < 50)
-                {
-                    FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
-                    getline(cin, input);
-                }
-                else if (currentDay == 40 && progress >= 50)
-                {
-                    FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
-                    getline(cin, input);
-                }
-                if (currentDay == 60)
-                {
+                else if (currentDay == 60) {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
-                    getline(cin, input);
+                    Sleep(5000); getline(cin, input);
 
-                    // 엔딩 스토리 출력
-                    // 스텟에 따라 다른 스토리 나오는 걸로 수정 필요
-                    FileIO::printSentenceAt("Story/Ending_story.txt", 0);
+                    // 엔딩
+                    FileIO::printSentenceAt("Story/Ending_story.txt", 0); // TODO: 스탯별로 다른 엔딩 추가
                     getline(cin, input);
+                    break;
                 }
 
                 continue;
@@ -218,13 +182,40 @@ public:
             }
 
             else if (input == "1" || input == "2" || input == "3" || input == "4") {
+                // 일정 선택 전 조건 검사
                 if (morningChoice.empty()) {
-                    morningChoice = input;
-                    vm.setMorningPlan(stoi(morningChoice));
+                    if (input == "1" && health < 10) {
+                        cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                    }
+                    else if (input == "2" && money < 20000) {
+                        cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                    }
+                    else if (input == "3" && health < 10) {
+                        cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                    }
+                    else {
+                        morningChoice = input;
+                        vm.setMorningPlan(stoi(input));
+                    }
+                    Sleep(3000);
+                    system("cls");
                 }
                 else if (afternoonChoice.empty()) {
-                    afternoonChoice = input;
-                    vm.setAfternoonPlan(stoi(afternoonChoice));
+                    if (input == "1" && health < 10) {
+                        cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                    }
+                    else if (input == "2" && money < 20000) {
+                        cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                    }
+                    else if (input == "3" && health < 10) {
+                        cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                    }
+                    else {
+                        afternoonChoice = input;
+                        vm.setAfternoonPlan(stoi(input));
+                    }
+                    Sleep(3000);
+                    system("cls");
                 }
             }
 
