@@ -40,7 +40,8 @@ public:
         // Day 1 오프닝
         if (currentDay == 1) {
             FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
-            ProimagIO::printSentenceAt("Story/professor_image.txt", 1);
+            cout << "\n" << endl;
+            ProimagIO::printSentenceAt("Story/professor_image.txt", 0);
             Sleep(5000);
             system("cls");
         }
@@ -74,14 +75,24 @@ public:
                 if (morningChoice == "1") {
                     moneyChange += 40000;
                     healthChange -= 10;
+
                     FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
+
+
+                    if (Random == 0 || Random == 1) moneyChange -= 40000;            // 0,1 이벤트는 money_change 0 , //  8,9 이벤트는  money_change +80000원
+                    else if (Random == 8 || Random == 9) moneyChange += 40000;
+
                     getline(cin, input);
                 }
                 else if (morningChoice == "2") {
                     healthChange -= 5;
                     teamworkChange += 10;
                     moneyChange -= 20000;
+
                     FileIO::printSentenceAt("Story/Playing_story.txt", Random);
+                    if (Random == 0 || Random == 1) teamworkChange -= 5;           // 0,1 이벤트는 teamworkChange +5 , //  8,9 이벤트는  teamworkChange +15
+                    else if (Random == 8 || Random == 9) teamworkChange += 5;
+
                     getline(cin, input);
                 }
                 else if (morningChoice == "3") {
@@ -147,17 +158,27 @@ public:
                 // 20일 단위 이벤트
                 if (currentDay == 20) {
                     if (progress < 30)
+                    {
                         FileIO::printSentenceAt("Story/Day_per_20.txt", 1);
-                    
-                    else
+                        ProimagIO::printSentenceAt("Story/professor_image.txt", 1);
+                    }
+                    else {
                         FileIO::printSentenceAt("Story/Day_per_20.txt", 2);
+                        ProimagIO::printSentenceAt("Story/professor_image.txt", 3);
+                    }
+                        
                     Sleep(5000); getline(cin, input); system("cls");
                 }
                 else if (currentDay == 40) {
-                    if (progress < 50)
+                    if (progress < 50) {
                         FileIO::printSentenceAt("Story/Day_per_20.txt", 3);
-                    else
+                        ProimagIO::printSentenceAt("Story/professor_image.txt", 1); // 무서운 얼굴은 엔딩에만 
+                    }
+                    else{
                         FileIO::printSentenceAt("Story/Day_per_20.txt", 4);
+                        ProimagIO::printSentenceAt("Story/professor_image.txt", 4); 
+                    }
+                        
                     Sleep(5000); getline(cin, input); system("cls");
                 }
                 else if (currentDay == 60) {
@@ -186,35 +207,41 @@ public:
                 if (morningChoice.empty()) {
                     if (input == "1" && health < 10) {
                         cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else if (input == "2" && money < 20000) {
                         cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else if (input == "3" && health < 10) {
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else {
                         morningChoice = input;
                         vm.setMorningPlan(stoi(input));
                     }
-                    Sleep(3000);
+
                     system("cls");
                 }
                 else if (afternoonChoice.empty()) {
                     if (input == "1" && health < 10) {
                         cout << "체력이 부족하여 알바를 할 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else if (input == "2" && money < 20000) {
                         cout << "돈이 부족하여 놀러갈 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else if (input == "3" && health < 10) {
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
                     }
                     else {
                         afternoonChoice = input;
                         vm.setAfternoonPlan(stoi(input));
                     }
-                    Sleep(3000);
+
                     system("cls");
                 }
             }

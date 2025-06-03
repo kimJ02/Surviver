@@ -3,7 +3,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <stdlib.h>
-#include<time.h>
+#include <time.h>
 using namespace std;
 
 class store {
@@ -12,6 +12,7 @@ class store {
 public:
     store(int day = 1) : currentDay(day) {
         initializeStats();
+        srand((unsigned int)time(NULL)); // 난수 초기화
     }
 
     bool print_store() {
@@ -31,6 +32,7 @@ public:
             cout << "--------------------------------------------------------\n\n";
             cout << "  [1] 에너지 드링크 (5000원): 체력 회복\n";
             cout << "  [2] 복권 (15000원): \n";
+            cout << "  [3] 간식 (7000원): \n";
             cout << "--------------------------------------------------------\n\n";
 
             cout << "Money : " << money << "원" << endl;
@@ -68,6 +70,9 @@ public:
             else if (item_input == "2") {
                 item_number = 2;
             }
+            else if (item_input == "3") {
+                item_number = 3;
+            }
             else {
                 cout << "잘못된 입력입니다.\n";
                 Sleep(800);
@@ -78,30 +83,35 @@ public:
             switch (item_number) {
             case 1:
                 if (money >= 5000 && health <= 95) {
-                    health += 5;  //
-                    money -= 5000;  //에너지 드링크 5000원
+                    health += 5;
+                    money -= 5000;
                     cout << "(꼴깍) 에너지 드링크를 마셨다. 체력: " << health << "%\n";
                 }
                 else {
                     cout << "구매할 수 없습니다.\n";
                 }
                 break;
-            case 2:// 확률 3퍼센트에 30만원 - 무조건 뽑는 사람이 손해 보도록
-                srand(time(NULL));
-                int winning_percentage = rand() % 33; // 0 ~32 난수
-
-                if (money >= 10000) {
+            case 2:
+                if (money >= 15000) {
                     money -= 15000;
-                    if (winning_percentage == 32)
-                    {
+                    int winning_percentage = rand() % 33;
+                    if (winning_percentage == 32) {
                         money += 300000;
                         cout << "복권 당첨!!!!!!\n";
                     }
-                    else
-                    {
+                    else {
                         cout << "(두근 두근) 복권을 구매했다! 꽝이야..\n";
                     }
-
+                }
+                else {
+                    cout << "구매할 수 없습니다.\n";
+                }
+                break;
+            case 3:
+                if (money >= 7000 && teamwork <= 95) {
+                    teamwork += 5;
+                    money -= 7000;
+                    cout << "오늘은 고생하는 팀원들을 위해서 간식을 사갔다! 모두들 기뻐하는 것 같아!  협력도: " << teamwork << "%\n";
                 }
                 else {
                     cout << "구매할 수 없습니다.\n";
