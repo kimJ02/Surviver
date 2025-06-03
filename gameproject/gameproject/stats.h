@@ -3,7 +3,7 @@
 #define STATS_H
 
 extern int health;
-extern int progress; 
+extern int progress;
 extern double money;
 extern int teamwork;
 
