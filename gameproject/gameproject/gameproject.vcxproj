@@ -146,6 +146,7 @@
     <ClInclude Include="FileIO.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="next_day.h" />
+    <ClInclude Include="Partimejob_imag_IO.h" />
     <ClInclude Include="prolog.h" />
     <ClInclude Include="stats.h" />
     <ClInclude Include="store.h" />
