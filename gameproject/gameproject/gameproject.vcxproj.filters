@@ -53,7 +53,7 @@
     <ClInclude Include="ending_image2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="event_imageIO.h">
+    <ClInclude Include="Event_imageIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

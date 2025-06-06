@@ -11,7 +11,7 @@
 #include "stats.h"
 #include "FileIO.h"
 #include "ProimagIO.h"
-#include "event_imageIO.h"
+#include "Event_imageIO.h"
 #include "ending_image2.h"
 
 using namespace std;
@@ -78,7 +78,7 @@ public:
                     moneyChange += 40000;
                     healthChange -= 10;
 
-                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 0);
+                    Event_imageIO::printSentenceAt("Story/Parttimejob_Image.txt", 0);
                     cout << "\n============================================================================================================================================================\n" << endl;                   
                     FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
                    
@@ -93,7 +93,7 @@ public:
                     teamworkChange += 10;
                     moneyChange -= 20000;
 
-                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 1);
+                    Event_imageIO::printSentenceAt("Story/Parttimejob_Image.txt", 1);
                     cout << "\n============================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Playing_story.txt", Random);
                     if (Random == 0 || Random == 1) teamworkChange -= 5;           // 0,1 이벤트는 teamworkChange +5 , //  8,9 이벤트는  teamworkChange +15
@@ -105,7 +105,7 @@ public:
                     progressChange += 2;
                     healthChange -= 10;
                     teamworkChange -= 5;
-                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 2);
+                    Event_imageIO::printSentenceAt("Story/Parttimejob_Image.txt", 2);
                     cout << "\n============================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Work_story.txt", Random);
                     getline(cin, input);
@@ -113,7 +113,7 @@ public:
                 else if (morningChoice == "4") {
                     healthChange += 15;
                     teamworkChange -= 5;
-                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 3);
+                    Event_imageIO::printSentenceAt("Story/Parttimejob_Image.txt", 3);
                     cout << "\n============================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Rest_story.txt", Random);
                     getline(cin, input);

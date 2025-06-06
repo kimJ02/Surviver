@@ -8,7 +8,7 @@
 #include <windows.h>
 using namespace std;
 
-namespace PartTimeJob_imagIO {
+namespace Event_imageIO{
 
     static inline string trim(const string& s) {
         auto is_space = [](char ch) {

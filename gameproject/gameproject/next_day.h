@@ -34,22 +34,24 @@ public:
         cout << "\n--------------------------------------------------------\n";
         cout << " 스탯 변화 요약:\n\n";
 
-        cout << "  돈       : " << money << "원 (" << (moneyChange > 0 ? "+" : "") << moneyChange << ")\n";
+        cout << "  Money      : " << money << "원" << endl;
 
-        cout << "  체력     : [";
+        cout << "  Health     : [";
         for (int i = 0; i < healthBar; i++) cout << "|";
         for (int i = healthBar; i < 10; i++) cout << " ";
         cout << "] " << health << "% (" << (healthChange > 0 ? "+" : "") << healthChange << "%)\n";
 
-        cout << "  진행도   : [";
+        cout << "  Teamwork   : [";
+        for (int i = 0; i < teamworkBar; i++) cout << "|";
+        for (int i = teamworkBar; i < 20; i++) cout << " ";
+        cout << "] " << teamwork << "% (" << (teamworkChange > 0 ? "+" : "") << teamworkChange << "%)\n";
+
+        cout << "  Progress   : [";
         for (int i = 0; i < progressBar; i++) cout << "|";
         for (int i = progressBar; i < 20; i++) cout << " ";
         cout << "] " << progress << "% (" << (progressChange > 0 ? "+" : "") << progressChange << "%)\n";
 
-        cout << "  협력도   : [";
-        for (int i = 0; i < teamworkBar; i++) cout << "|";
-        for (int i = teamworkBar; i < 20; i++) cout << " ";
-        cout << "] " << teamwork << "% (" << (teamworkChange > 0 ? "+" : "") << teamworkChange << "%)\n";
+        cout << "\n--------------------------------------------------------\n";
 
         cout << "\n========================================================\n";
         //cout << "[Enter]을 눌러 다음 날로 넘어가기...";
