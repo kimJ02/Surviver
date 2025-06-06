@@ -50,7 +50,10 @@
     <ClInclude Include="ProimagIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Partimejob_imag_IO.h">
+    <ClInclude Include="ending_image2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="event_imageIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

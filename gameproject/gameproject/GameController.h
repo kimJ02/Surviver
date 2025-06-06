@@ -11,7 +11,8 @@
 #include "stats.h"
 #include "FileIO.h"
 #include "ProimagIO.h"
-#include "Partimejob_imag_IO.h"
+#include "event_imageIO.h"
+#include "ending_image2.h"
 
 using namespace std;
 
@@ -163,6 +164,8 @@ public:
                 afternoonChoice = "";
 
                 system("cls");
+                
+
 
                 // 20일 단위 이벤트
                 if (currentDay == 20) {
@@ -192,14 +195,53 @@ public:
                 }
                 else if (currentDay == 60) {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
-                    Sleep(5000); getline(cin, input);
+                    Sleep(5000); getline(cin, input); system("cls");
 
-                    // 엔딩
-                    FileIO::printSentenceAt("Story/Ending_story.txt", 0); // TODO: 스탯별로 다른 엔딩 추가
-                    getline(cin, input);
-                    break;
+                    if (progress <= 100 && progress > 90) {
+                        FileIO::printSentenceAt("Story/Ending_story.txt", 0);
+                        Ending_Image(1);
+                        getline(cin, input);
+                        break;
+                    }
+                    else if (progress <= 90 && progress > 80) {
+                        FileIO::printSentenceAt("Story/Ending_story.txt", 1);
+                        Ending_Image(2);
+                        getline(cin, input);
+                        break;
+                    }
+                    else if (progress <= 80 && progress > 70) {
+                        FileIO::printSentenceAt("Story/Ending_story.txt", 2);
+                        Ending_Image(3);
+                        getline(cin, input);
+                        break;
+                    }
+                    else if (progress <= 70 && progress > 60) {
+                        FileIO::printSentenceAt("Story/Ending_story.txt", 3);
+                        Ending_Image(4);
+                        getline(cin, input);
+                        break;
+                    }
+                    else if (progress <= 60) {
+                        cout << "............" << endl;
+                        Sleep(5000); system("cls");
+                        Ending_Image(5);
+                        Sleep(200); system("cls");
+                        Ending_Image(6);
+                        Sleep(200); system("cls");
+                        Ending_Image(7);
+                        Sleep(200); system("cls");
+                        Ending_Image(8);
+                        Sleep(200); system("cls");
+                        Ending_Image(9);
+                        Sleep(200); system("cls");
+                        Ending_Image(10);
+                        Sleep(2000); system("cls");
+                        FileIO::printSentenceAt("Story/Ending_story.txt", 4);
+                        Ending_Image(11);
+                        getline(cin, input);
+                        break;
+                    }
                 }
-
                 continue;
             }
 
