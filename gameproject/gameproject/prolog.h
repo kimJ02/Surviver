@@ -16,8 +16,8 @@ public:
 		getline(cin, name);
 		system("cls");
 
-		cout << " 어… 나 지금 뭘 해야 하지? " << endl;
-		cout << " 나는 대학교 3학년 " << name << "," << endl;
+		cout << "어… 나 지금 뭘 해야 하지? " << endl;
+		cout << "나는 대학교 3학년 " << name << "," << endl;
 		FileIO::printFile("Story/prolog1.txt");
 
 		cout << " ENTER ";
