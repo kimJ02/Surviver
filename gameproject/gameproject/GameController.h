@@ -193,7 +193,7 @@ public:
                         
                     Sleep(5000); getline(cin, input); system("cls");
                 }
-                else if (currentDay == 60) {
+                else if (currentDay == 60 || progress == 100) {
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
                     Sleep(5000); getline(cin, input); system("cls");
 
