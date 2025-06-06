@@ -11,6 +11,7 @@
 #include "stats.h"
 #include "FileIO.h"
 #include "ProimagIO.h"
+#include "Partimejob_imag_IO.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ public:
         if (currentDay == 1) {
             FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
             cout << "\n" << endl;
-            ProimagIO::printSentenceAt("Story/professor_image.txt", 0);
+            ProimagIO::printSentenceAt("Story/professor_image.txt", 2);
             Sleep(5000);
             system("cls");
         }
@@ -76,8 +77,10 @@ public:
                     moneyChange += 40000;
                     healthChange -= 10;
 
+                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 0);
+                    cout << "\n=============================================================================================================================================================================================\n" << endl;                   
                     FileIO::printSentenceAt("Story/Part_time_job_story.txt", Random);
-
+                   
 
                     if (Random == 0 || Random == 1) moneyChange -= 40000;            // 0,1 이벤트는 money_change 0 , //  8,9 이벤트는  money_change +80000원
                     else if (Random == 8 || Random == 9) moneyChange += 40000;
@@ -89,6 +92,8 @@ public:
                     teamworkChange += 10;
                     moneyChange -= 20000;
 
+                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 1);
+                    cout << "\n=============================================================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Playing_story.txt", Random);
                     if (Random == 0 || Random == 1) teamworkChange -= 5;           // 0,1 이벤트는 teamworkChange +5 , //  8,9 이벤트는  teamworkChange +15
                     else if (Random == 8 || Random == 9) teamworkChange += 5;
@@ -99,12 +104,16 @@ public:
                     progressChange += 2;
                     healthChange -= 10;
                     teamworkChange -= 5;
+                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 2);
+                    cout << "\n=============================================================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Work_story.txt", Random);
                     getline(cin, input);
                 }
                 else if (morningChoice == "4") {
                     healthChange += 15;
                     teamworkChange -= 5;
+                    PartTimeJob_imagIO::printSentenceAt("Story/Parttimejob_Image.txt", 3);
+                    cout << "\n=============================================================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Rest_story.txt", Random);
                     getline(cin, input);
                 }
