@@ -44,7 +44,7 @@ public:
             FileIO::printSentenceAt("Story/Day_per_20.txt", 0);
             cout << "\n" << endl;
             ProimagIO::printSentenceAt("Story/professor_image.txt", 2);
-            Sleep(5000);
+            getline(cin, input);
             system("cls");
         }
 
@@ -102,9 +102,16 @@ public:
                     getline(cin, input);
                 }
                 else if (morningChoice == "3") {
-                    progressChange += 2;
+                    if (teamwork >= 70)
+                    {
+                        progressChange += 5;
+                    }
+                    else
+                    {
+                        progressChange += 2;
+                    }
                     healthChange -= 10;
-                    teamworkChange -= 5;
+                    teamworkChange -= 5; 
                     Event_imageIO::printSentenceAt("Story/Parttimejob_Image.txt", 2);
                     cout << "\n============================================================================================================================================================\n" << endl;
                     FileIO::printSentenceAt("Story/Work_story.txt", Random);
@@ -268,6 +275,14 @@ public:
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
                         Sleep(3000);
                     }
+                    else if (input == "3" && teamwork < 5) {
+                        cout << "팀워크가 낮아 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                    }
+                    else if (input == "4" && teamwork < 5) {
+                        cout << "팀워크가 낮아 쉴 수 없습니다." << endl;
+                        Sleep(3000);
+                    }
                     else {
                         morningChoice = input;
                         vm.setMorningPlan(stoi(input));
@@ -286,6 +301,14 @@ public:
                     }
                     else if (input == "3" && health < 10) {
                         cout << "체력이 부족하여 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                    }
+                    else if (input == "3" && teamwork < 5) {
+                        cout << "팀워크가 낮아 과제를 할 수 없습니다." << endl;
+                        Sleep(3000);
+                    }
+                    else if (input == "4" && teamwork < 5) {
+                        cout << "팀워크가 낮아 쉴 수 없습니다." << endl;
                         Sleep(3000);
                     }
                     else {
