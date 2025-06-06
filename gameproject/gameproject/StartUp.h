@@ -52,7 +52,8 @@ void StartUp() {
 
     SetConsoleOutputCP(originalCP); // 다시 원래의 문자열 출력 방식으로 바꿈
 
-    std::cout << "Press any key to start";
+    std::cout << "F11 안 누르고 한다고요? 그러다 A+ 못 받습니다." << std::endl;
+    std::cout << "아무 키나 눌러 게임을 시작하세요.";
     _getch();  // 사용자가 키를 누를 때까지 기다림
     system("cls");  // 콘솔 화면 초기화
 

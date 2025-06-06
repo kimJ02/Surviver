@@ -119,7 +119,7 @@ public:
                 break;
             }
 
-            Sleep(800);
+            Sleep(1500);
             system("cls");
         }
     }
