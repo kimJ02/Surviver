@@ -34,7 +34,7 @@ public:
         cout << "\n--------------------------------------------------------\n";
         cout << " 스탯 변화 요약:\n\n";
 
-        cout << "  Money      : " << money << "원" << endl;
+        cout << "  Money      : " << money << "원" << " (" << (moneyChange > 0 ? "+" : "") << moneyChange << "원)" << endl;
 
         cout << "  Health     : [";
         for (int i = 0; i < healthBar; i++) cout << "|";
