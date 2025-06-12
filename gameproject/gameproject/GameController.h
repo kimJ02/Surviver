@@ -34,7 +34,8 @@ public:
 
     void run() {
         string input;
-
+        health = 10;
+        teamwork = 0;
         pr.print_prolog();
 
         srand(static_cast<unsigned int>(time(NULL)));
@@ -160,7 +161,28 @@ public:
                 if (teamwork < 0) teamwork = 0;
                 if (teamwork > 100) teamwork = 100;
                 if (money < 0) money = 0;
-
+                if (health == 0 && teamwork == 0) {
+                    Sleep(300);
+                    system("cls");
+                    cout << "체력과 팀워크가 박살난 우리 조는 결국....." << endl;
+                    Sleep(5000); system("cls");
+                    Ending_Image(5);
+                    Sleep(200); system("cls");
+                    Ending_Image(6);
+                    Sleep(200); system("cls");
+                    Ending_Image(7);
+                    Sleep(200); system("cls");
+                    Ending_Image(8);
+                    Sleep(200); system("cls");
+                    Ending_Image(9);
+                    Sleep(200); system("cls");
+                    Ending_Image(10);
+                    Sleep(2000); system("cls");
+                    FileIO::printSentenceAt("Story/Ending_story.txt", 4);
+                    Ending_Image(11);
+                    getline(cin, input);
+                    break;
+                }
                 nt.print_day_result(currentDay, morningChoice, afternoonChoice, money, healthChange, progressChange, teamworkChange, moneyChange);
 
                 cout << "\n[Enter]을 눌러 다음 날로 넘어가기...";
@@ -204,25 +226,25 @@ public:
                     FileIO::printSentenceAt("Story/Day_per_20.txt", 5);
                     Sleep(5000); getline(cin, input); system("cls");
 
-                    if (progress <= 100 && progress > 90) {
+                    if (progress <= 90 && progress > 80) {
                         FileIO::printSentenceAt("Story/Ending_story.txt", 0);
                         Ending_Image(1);
                         getline(cin, input);
                         break;
                     }
-                    else if (progress <= 90 && progress > 80) {
+                    else if (progress <= 80 && progress > 70) {
                         FileIO::printSentenceAt("Story/Ending_story.txt", 1);
                         Ending_Image(2);
                         getline(cin, input);
                         break;
                     }
-                    else if (progress <= 80 && progress > 70) {
+                    else if (progress <= 70 && progress > 60) {
                         FileIO::printSentenceAt("Story/Ending_story.txt", 2);
                         Ending_Image(3);
                         getline(cin, input);
                         break;
                     }
-                    else if (progress <= 70 && progress > 60) {
+                    else if (progress <= 60 && progress > 50) {
                         FileIO::printSentenceAt("Story/Ending_story.txt", 3);
                         Ending_Image(4);
                         getline(cin, input);
